@@ -1,0 +1,25 @@
+[user]
+	name = {{ .name | quote }}
+	email = {{ .email | quote }}
+[init]
+	defaultBranch = main
+[core]
+	excludesfile = {{ .chezmoi.homeDir }}/.gitignore_global
+	editor = nvim
+{{ if eq .machinename "imac-privat" }}
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = {{ .chezmoi.homeDir }}/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+{{ end }}
+[commit]
+	template = {{ .chezmoi.homeDir }}/.stCommitMsg
+[color]
+	ui = true
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
