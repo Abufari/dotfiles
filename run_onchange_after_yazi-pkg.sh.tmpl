@@ -1,0 +1,5 @@
+#!/bin/bash
+# package.toml hash: {{ include "private_dot_config/yazi/package.toml" | sha256sum }}
+set -euo pipefail
+command -v ya >/dev/null || { echo "ya not found, skipping yazi packages" >&2; exit 0; }
+ya pkg install
