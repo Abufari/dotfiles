@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.florianlinscheid.photobackup</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>{{ .chezmoi.homeDir }}/Developer/claude-photo-backup/backup.sh</string>
+    </array>
+
+    <!-- Alle 6 Stunden versuchen. Wenn der Mac aus/im Standby war, holt launchd
+         den verpassten Lauf beim nächsten Aufwachen automatisch nach. -->
+    <key>StartInterval</key>
+    <integer>21600</integer>
+
+    <!-- Einmal direkt nach dem Laden versuchen (z.B. nach Login/Neustart). -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/claude-photo-backup.launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>{{ .chezmoi.homeDir }}/Library/Logs/claude-photo-backup.launchd.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>
